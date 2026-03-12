@@ -10,9 +10,9 @@ def load_blacklist():
 
 app = Flask(__name__)
 
-# Example email and password
-EMAIL_ADDRESS = "saltedhampukuku@gmail.com"
-EMAIL_PASSWORD = "oaxm zncs oiau jvhi"
+# Example email and password. Password  should be 4 sets of 4 characters.
+EMAIL_ADDRESS = "sendingexample@gmail.com"
+EMAIL_PASSWORD = "aaaa aaaa aaaa aaaa"
 
 #calls blacklist
 Black_List = load_blacklist()

@@ -1,7 +1,7 @@
 import requests
 
 data = {
-    "email": "pukuku101@gmail.com",
+    "email": "example@gmail.com",
     "subject": "Login Notification",
     "message": "You have successfully signed in. \n Please dont read this"
     

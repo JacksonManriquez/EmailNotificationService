@@ -1,2 +1,2 @@
 blocked@example.com
-jacksonmanriquez@gmail.com
+second_email@gmail.com
