@@ -19,7 +19,7 @@ Black_List = load_blacklist()
 
 def send_email(to_email, subject, message):
     #Adds unsubscribe link to email.
-    unsubscribe_link = f"http://YOUR_EC2_PUBLIC_IP:3002/blacklist?email={to_email}"
+    unsubscribe_link = f"http://3.129.216.60:3002/blacklist?email={to_email}"
     message_with_link = message + f"\n\nTo stop receiving these emails click:\n{unsubscribe_link}"
 
     msg = MIMEText(message_with_link)
