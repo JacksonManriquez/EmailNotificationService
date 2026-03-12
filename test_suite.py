@@ -3,7 +3,8 @@ import requests
 data = {
     "email": "pukuku101@gmail.com",
     "subject": "Login Notification",
-    "message": "You have successfully signed in."
+    "message": "You have successfully signed in. \n Please dont read this"
+    
 }
 
-requests.post("http://192.168.4.37:3002/send-email", json=data)
+requests.post("http://3.129.216.60:3002/send-email", json=data)

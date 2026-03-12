@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import smtplib
 from email.mime.text import MIMEText
-
+# Simply creates a list of blocked emails that the program cannot send to.
 def load_blacklist():
     with open("blacklist.txt") as f:
         return set(line.strip() for line in f)
@@ -10,24 +10,27 @@ def load_blacklist():
 
 app = Flask(__name__)
 
+# Example email and password
 EMAIL_ADDRESS = "saltedhampukuku@gmail.com"
 EMAIL_PASSWORD = "oaxm zncs oiau jvhi"
 
-
-
+#calls blacklist
+Black_List = load_blacklist()
 
 def send_email(to_email, subject, message):
+    #Adds unsubscribe link to email.
+    unsubscribe_link = f"http://YOUR_EC2_PUBLIC_IP:3002/blacklist?email={to_email}"
+    message_with_link = message + f"\n\nTo stop receiving these emails click:\n{unsubscribe_link}"
 
-
-    Black_List = load_blacklist()
-    msg = MIMEText(message)
+    msg = MIMEText(message_with_link)
     msg['Subject'] = subject
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = to_email
-
+    #Checks for blocked address
     if to_email in Black_List:
         return { "error": "Email address blocked"}
 
+    # Makes api request to gmail and sends email on your behalf
     try:
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
@@ -61,8 +64,25 @@ def email_endpoint():
         return jsonify({"status": "Failed to send email"}), 500
 
 
+@app.route("/blacklist", methods=["GET"])
+def blacklist_email():
+
+    email = request.args.get("email")
+
+    if not email:
+        return "No email provided", 400
+
+    Black_List.add(email)
+
+    with open("blacklist.txt", "a") as f:
+        f.write(email + "\n")
+
+    return "Email successfully unsubscribed."
+
+
 
 
 if __name__ == "__main__":
+    # Runs on EC2 server currenty, can be changed to local, switch to commetned line. De bug allows program to be changed
     app.run(host='0.0.0.0', port=3002, debug=True)
-
+    #app.run(port=3002, debug=True)
