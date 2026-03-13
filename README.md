@@ -161,10 +161,10 @@ sequenceDiagram
 
 ```bash
 pip install flask
-python app.py
+python mailservice.py
 ```
 
-Service runs on port `3002`. To run locally instead of on the EC2 server, swap the `app.run` line in `app.py`:
+Service runs on port `3002`. To run locally instead of on the EC2 server, swap the `app.run` line in `mailservice.py`:
 
 ```python
 # app.run(host='0.0.0.0', port=3002, debug=True)  # EC2
@@ -177,3 +177,4 @@ curl -X POST http://3.129.216.60:3002/send-email \
   -H "Content-Type: application/json" \
   -d '{"email": "test@example.com", "message": "ping"}'
 ```
+
